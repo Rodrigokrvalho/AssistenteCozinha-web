@@ -71,11 +71,12 @@ export default {
   align-items: center;
   width: 100%;
   background-color: #ff9028;
+  border-radius: 10px;
 }
 
 .results-ads .results {
   width: 310px;
-  padding: 30px 0px; 
+  padding: 0px 0px; 
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -89,13 +90,13 @@ export default {
 }
 
 .results h3 {
-  margin-top: 5%;
+  margin-top: 3%;
   font-size: 1.6rem;
 }
 
 .results-ads .ads {
-  width: 500px;
-  height: 500px;
+  width: 530px;
+  height: 530px;
   
 }
 

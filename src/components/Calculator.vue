@@ -17,60 +17,113 @@
     </div>
     <div>
       <label for="price" id="label-price" class="invisible"
-        >Preço do pacote do ingrediente</label
+        >Preço do ingrediente (R$)</label
       >
       <input
         type="number"
         id="price"
-        placeholder="Preço do pacote do ingrediente"
+        placeholder="Preço do ingrediente (R$)"
         v-model="price"
       />
     </div>
     <div class="radios-unit">
-      <p>Selecione a unidade de medida:</p>
+      <p>
+        Quantidade de {{ ingredient }} na <strong>embalagem fechada.</strong>
+      </p>
+      <p>Unidade de medida:</p>
       <div class="radio-unit">
-        <input type="radio" name="radio" id="kg" @click="checkUnit('Kg')" />
-        <label for="kg">Kg</label>
+        <input type="radio" name="radio-pack" id="kg" @click="checkUnit('kg', 'pack')" />
+        <label for="kg">Quilograma (kg)</label>
       </div>
+
       <div class="radio-unit">
-        <input type="radio" name="radio" id="l" @click="checkUnit('Litros')" />
-        <label for="l">Litros</label>
+        <input type="radio" name="radio-pack" id="g" @click="checkUnit('g', 'pack')" />
+        <label for="g">Grama (g)</label>
       </div>
+
+      <div class="radio-unit">
+        <input type="radio" name="radio-pack" id="l" @click="checkUnit('Litros', 'pack')" />
+        <label for="l">Litro (l)</label>
+      </div>
+
+      <div class="radio-unit">
+        <input type="radio" name="radio-pack" id="ml" @click="checkUnit('ml', 'pack')" />
+        <label for="l">Mililitro (ml)</label>
+      </div>
+
+      <div class="radio-unit">
+        <input
+          type="radio"
+          name="radio-pack"
+          id="unit"
+          @click="checkUnit('Unidades', 'pack')"
+        />
+        <label for="unit">Unidade</label>
+      </div>
+
+      <div>
+        <label for="pack" id="label-pack" class="invisible"
+          >{{ unitPack }} na embalagem fechada</label
+        >
+        <input
+          type="number"
+          id="pack"
+          :placeholder="placeholderPackage"
+          v-model="pack"
+        />
+      </div>
+    </div>
+
+    <div class="radios-unit">
+      <p>
+        Quantidade de {{ ingredient }} na <strong>receita.</strong>
+      </p>
+      <p>Unidade de medida:</p>
+      <div class="radio-unit">
+        <input type="radio" name="radio" id="kg" @click="checkUnit('kg', 'recipe')" />
+        <label for="kg">Quilograma (kg)</label>
+      </div>
+
+      <div class="radio-unit">
+        <input type="radio" name="radio" id="g" @click="checkUnit('g', 'recipe')" />
+        <label for="g">Grama (g)</label>
+      </div>
+
+      <div class="radio-unit">
+        <input type="radio" name="radio" id="l" @click="checkUnit('Litros', 'recipe')" />
+        <label for="l">Litro (l)</label>
+      </div>
+
+      <div class="radio-unit">
+        <input type="radio" name="radio" id="ml" @click="checkUnit('ml', 'recipe')" />
+        <label for="l">Mililitro (ml)</label>
+      </div>
+
       <div class="radio-unit">
         <input
           type="radio"
           name="radio"
           id="unit"
-          @click="checkUnit('Unidades')"
+          @click="checkUnit('Unidades', 'recipe')"
         />
         <label for="unit">Unidade</label>
       </div>
+      <div>
+        <label for="recipe" id="label-recipe" class="invisible"
+          >{{ unitRecipe }} na Receita</label
+        >
+        <input
+          type="number"
+          id="recipe"
+          :placeholder="placeholderRecipe"
+          v-model="recipe"
+        />
+      </div>
     </div>
-    <div>
-      <label for="pack" id="label-pack" class="invisible"
-        >{{ unit }} no pacote fechado</label
-      >
-      <input
-        type="number"
-        id="pack"
-        :placeholder="placeholderPackage"
-        v-model="pack"
-      />
-    </div>
-    <div>
-      <label for="recipe" id="label-recipe" class="invisible"
-        >{{ unit }} na Receita</label
-      >
-      <input
-        type="number"
-        id="recipe"
-        :placeholder="placeholderRecipe"
-        v-model="recipe"
-      />
-    </div>
+
     <div>
       <p id="add-ingredients">
-        Produtos adicionados
+        Produtos adicionados e quantidade na receita
         <Ingredients
           v-for="ing in ingredients"
           :key="ing.key"
@@ -81,8 +134,12 @@
       </p>
     </div>
     <div class="horizontal">
-      <button id="button-remove" @click="remove()">Remover</button>
-      <button id="button-add" @click="add()">Adicionar</button>
+      <button id="button-add" class="font-green" @click="add()">
+        Adicionar
+      </button>
+      <button id="button-remove" class="font-red" @click="remove()">
+        Remover
+      </button>
     </div>
     <hr />
     <div>
@@ -139,7 +196,10 @@
     </div>
     <div>
       <button id="button-calculate" @click="calcIng()">Calcular</button>
-      <div class="results" :class="isInvisible ? 'invisible' : ''">
+      <button id="button-clean" class="font-red" @click="cleanAll()">
+        Limpar
+      </button>
+      <div class="results">
         <Results
           :ing="ingTotal"
           :packagePrice="packagePrice ? packagePrice : 0"
@@ -147,7 +207,6 @@
           :profit="profit ? profit : 0"
         />
       </div>
-      <button id="button-clean" @click="cleanAll()">Limpar</button>
     </div>
   </div>
 </template>
@@ -161,13 +220,13 @@ export default {
     return {
       ingredient: "",
       price: "",
-      unit: "",
+      unitRecipe: "",
+      unitPack: "",
       pack: "",
       recipe: "",
       packagePrice: "",
       others: "",
       profit: "",
-      isInvisible: true,
       key: 0,
       ingredients: [],
       inputPackage: false,
@@ -177,10 +236,10 @@ export default {
   },
   computed: {
     placeholderPackage() {
-      return this.unit + " no pacote fechado";
+      return this.unitPack + " na embalagem fechada";
     },
     placeholderRecipe() {
-      return this.unit + " na receita";
+      return this.unitRecipe + " na receita";
     },
   },
   methods: {
@@ -204,8 +263,12 @@ export default {
       } else alert("Preencha todos os campos para Adicionar");
     },
 
-    checkUnit(unit) {
-      this.unit = unit;
+    checkUnit(unit, place) {
+      if (place === "pack") {
+        this.unitPack = unit;
+      } else {
+        this.unitRecipe = unit
+      }
     },
 
     remove() {
@@ -229,7 +292,6 @@ export default {
       this.packagePrice = "";
       this.others = "";
       this.profit = "";
-      this.isInvisible = true;
     },
 
     calcIng() {
@@ -238,7 +300,6 @@ export default {
         const value = (ing.price / ing.pack) * ing.recipe;
         this.ingTotal = this.ingTotal + value;
       });
-      this.isInvisible = false;
     },
 
     changePack(e) {
@@ -258,9 +319,9 @@ export default {
     setVisibility(id, input) {
       const label = document.querySelector(`#label-${id}`);
       if (input === "") {
-        this.invisible(label)
+        this.invisible(label);
       } else {
-        this.visible(label)
+        this.visible(label);
       }
     },
   },
@@ -310,6 +371,19 @@ export default {
   background-color: rgb(255, 230, 185);
   padding: 0% 7%;
   overflow: hidden;
+  color: rgb(47, 47, 47);
+}
+
+strong {
+  font-weight: 600;
+}
+
+.font-red {
+  color: rgb(195, 0, 0);
+}
+
+.font-green {
+  color: #015c62;
 }
 
 .products h2 {
@@ -317,11 +391,13 @@ export default {
 }
 .products label {
   display: flex;
-  height: 30px;
+  height: 35px;
   width: max-content;
   overflow: hidden;
   font-size: 1rem;
+  font-weight: 300;
   margin-bottom: -20px;
+  margin-top: 10px;
   visibility: visible;
 }
 
@@ -330,10 +406,9 @@ export default {
   visibility: visible;
 }
 .products label.invisible {
-  display: none;
+  /* display: none; */
   visibility: hidden;
 }
-
 
 .products div {
   width: 100%;
@@ -346,8 +421,8 @@ export default {
   border: none;
   border-bottom: solid 1px rgb(70, 70, 70);
   background-color: rgb(255, 230, 185);
-  padding: 5px 10px 3px;
-  margin: 10px 0 5px;
+  padding: 0px 10px 3px;
+  margin: 10px 0 10px;
   outline: none;
 }
 
@@ -371,12 +446,24 @@ p {
   padding: 5px 30px;
   box-shadow: 1px 2px 3px 0px grey;
   font-size: 1.3rem;
+  font-weight: 600;
   margin: 20px 25px;
   cursor: pointer;
 }
 
 .radios-unit {
-  margin: 20px;
+  margin: 25px 0;
+  padding: 10px;
+  background-color: #ffab5d4d;
+  border-radius: 10px;
+}
+
+#pack, #recipe {
+  background-color: transparent;
+}
+
+.radios-unit p {
+  padding: 5px 0;
 }
 
 .radio-unit {
@@ -397,7 +484,7 @@ p {
 .radio-unit label {
   margin: 5px 20px;
   height: auto;
-  width: 100px;
+  width: 200px;
   text-align: left;
   font-size: 1.2rem;
   cursor: pointer;
@@ -409,7 +496,6 @@ p {
   margin-bottom: 40px;
   padding-bottom: 40px;
 }
-
 
 .switcher {
   display: flex;
@@ -475,6 +561,4 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-
-
 </style>

@@ -58,7 +58,6 @@ export default {
 .main {
   display: grid;
   grid-template-columns: 300px 1fr 300px;
-  /* grid-template-rows: 1fr 1fr 1fr ; */
   grid-template-areas:
     "prop-1 headers prop-2"
     "prop-3 content-main prop-4";
@@ -113,7 +112,7 @@ export default {
 
 @media (max-width: 1200px) {
   html {
-    font-size: 18px;
+    font-size: 19px;
   }
   .main {
     display: flex;
