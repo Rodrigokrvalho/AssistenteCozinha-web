@@ -129,7 +129,7 @@
           :key="ing.key"
           :ing="ing.ingredient"
           :recipe="ing.recipe"
-          :unit="ing.unit"
+          :unitRecipe="ing.unitRecipe"
         />
       </p>
     </div>
@@ -248,13 +248,15 @@ export default {
         (this.ingredient !== "") &
         (this.price !== "") &
         (this.pack !== "") &
-        (this.recipe !== "")
+        (this.recipe !== "") &
+        (this.unitRecipe !== "") &
+        (this.unitPack !== "")
       ) {
         this.ingredients.push({
           key: this.ingredients.lastIndex,
           ingredient: this.ingredient,
           price: this.price,
-          unit: this.unit,
+          unitRecipe: this.unitRecipe,
           pack: this.pack,
           recipe: this.recipe,
         });
@@ -287,7 +289,6 @@ export default {
       this.clean();
       this.key = 0;
       this.ingredients = [];
-      this.unit = "";
       this.ingTotal = 0;
       this.packagePrice = "";
       this.others = "";
