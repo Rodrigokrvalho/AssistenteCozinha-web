@@ -32,22 +32,22 @@
       </p>
       <p>Unidade de medida:</p>
       <div class="radio-unit">
-        <input type="radio" name="radio-pack" id="kg" @click="checkUnit('kg', 'pack')" />
+        <input type="radio" name="radio-pack" id="kgPack" @click="checkUnit('kg', 'pack')" />
         <label for="kg">Quilograma (kg)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-pack" id="g" @click="checkUnit('g', 'pack')" />
+        <input type="radio" name="radio-pack" id="gPack" @click="checkUnit('g', 'pack')" />
         <label for="g">Grama (g)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-pack" id="l" @click="checkUnit('Litros', 'pack')" />
+        <input type="radio" name="radio-pack" id="lPack" @click="checkUnit('Litros', 'pack')" />
         <label for="l">Litro (l)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-pack" id="ml" @click="checkUnit('ml', 'pack')" />
+        <input type="radio" name="radio-pack" id="mlPack" @click="checkUnit('ml', 'pack')" />
         <label for="l">Mililitro (ml)</label>
       </div>
 
@@ -80,30 +80,30 @@
       </p>
       <p>Unidade de medida:</p>
       <div class="radio-unit">
-        <input type="radio" name="radio" id="kg" @click="checkUnit('kg', 'recipe')" />
+        <input type="radio" name="radio-recipe" id="kgRecipe" @click="checkUnit('kg', 'recipe')" />
         <label for="kg">Quilograma (kg)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio" id="g" @click="checkUnit('g', 'recipe')" />
+        <input type="radio" name="radio-recipe" id="gRecipe" @click="checkUnit('g', 'recipe')" />
         <label for="g">Grama (g)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio" id="l" @click="checkUnit('Litros', 'recipe')" />
+        <input type="radio" name="radio-recipe" id="lRecipe" @click="checkUnit('Litros', 'recipe')" />
         <label for="l">Litro (l)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio" id="ml" @click="checkUnit('ml', 'recipe')" />
-        <label for="l">Mililitro (ml)</label>
+        <input type="radio" name="radio-recipe" id="mlRecipe" @click="checkUnit('ml', 'recipe')" />
+        <label for="ml">Mililitro (ml)</label>
       </div>
 
       <div class="radio-unit">
         <input
           type="radio"
-          name="radio"
-          id="unit"
+          name="radio-recipe"
+          id="unitRecipe"
           @click="checkUnit('Unidades', 'recipe')"
         />
         <label for="unit">Unidade</label>
@@ -257,12 +257,20 @@ export default {
           ingredient: this.ingredient,
           price: this.price,
           unitRecipe: this.unitRecipe,
+          unitPack: this.unitPack,
           pack: this.pack,
           recipe: this.recipe,
         });
 
         this.clean();
       } else alert("Preencha todos os campos para Adicionar");
+    },
+
+    calcUnits(value, unit) {
+      if (unit == 'ml' || unit == 'g') {
+        return value / 1000
+      }
+      else {return value}
     },
 
     checkUnit(unit, place) {
@@ -298,7 +306,7 @@ export default {
     calcIng() {
       this.ingTotal = 0;
       this.ingredients.forEach((ing) => {
-        const value = (ing.price / ing.pack) * ing.recipe;
+        const value = (ing.price / this.calcUnits(ing.pack, ing.unitPack)) * this.calcUnits(ing.recipe, ing.unitRecipe);
         this.ingTotal = this.ingTotal + value;
       });
     },

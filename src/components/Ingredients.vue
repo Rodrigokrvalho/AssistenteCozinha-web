@@ -1,10 +1,10 @@
 <template>
-  <span> - {{ing}} {{recipe}}{{unit}}</span>
+  <span> - {{ing}} {{recipe}}{{unitRecipe}}</span>
 </template>
 
 <script>
 export default {
-    props: ['ing', 'recipe', 'unit']
+    props: ['ing', 'recipe', 'unitRecipe']
 }
 </script>
 

@@ -1,5 +1,28 @@
 <template>
   <div class="main">
+    <div class="headers">
+      <header class="content-header">
+        <!-- <div class="prop-5 ads-horizontal">
+          <AdSense adClient="ca-pub-6998861137482717" adSlot="4951877269" />
+        </div> -->
+        <Header />
+      </header>
+
+      <div class="content-welcome">
+        <Welcome />
+        <!-- <div class="prop-6 ads-horizontal">
+          <AdSense adClient="ca-pub-6998861137482717" adSlot="7076365775" />
+        </div> -->
+      </div>
+    </div>
+
+    <main class="content-main">
+      <Content />
+      <Calculator />
+      <KnowMore />
+      <Footer />
+    </main>
+
     <div class="prop-1 vertical">
       <AdSense adClient="ca-pub-6998861137482717" adSlot="9248778139" />
     </div>
@@ -10,49 +33,37 @@
 
     <div class="prop-3 vertical">
       <AdSense adClient="ca-pub-6998861137482717" adSlot="7748828355" />
-      <AdSense adClient="ca-pub-6998861137482717" adSlot="5335020649" />
+      <!-- <AdSense adClient="ca-pub-6998861137482717" adSlot="5335020649" /> -->
     </div>
 
     <div class="prop-4 vertical">
       <AdSense adClient="ca-pub-6998861137482717" adSlot="4871383575" />
-      <AdSense adClient="ca-pub-6998861137482717" adSlot="5216489191" />
+      <!-- <AdSense adClient="ca-pub-6998861137482717" adSlot="5216489191" /> -->
     </div>
-
-    <div class="headers">
-      <header class="content-header">
-        <div class="prop-5 ads-horizontal">
-          <AdSense adClient="ca-pub-6998861137482717" adSlot="4951877269" />
-        </div>
-        <Header />
-      </header>
-
-      <div class="content-welcome">
-        <Welcome />
-        <div class="prop-6 ads-horizontal">
-          <AdSense adClient="ca-pub-6998861137482717" adSlot="7076365775" />
-        </div>
-      </div>
-    </div>
-
-    <main class="content-main">
-      <Calculator />
-      <Footer/>
-      <AdSense adClient="ca-pub-6998861137482717" adSlot="5963714219" />
-      <AdSense adClient="ca-pub-6998861137482717" adSlot="5352220567" />
-    </main>
   </div>
 </template>
 
 <script>
 import Header from "../layout/Header";
 import Welcome from "../layout/Welcome";
-import Footer from "../layout/Footer"
+import Footer from "../layout/Footer";
+import Content from "../layout/Content";
+import KnowMore from "../layout/KnowMore";
 import Calculator from "../components/Calculator";
 import AdSense from "../components/AdSense";
 export default {
-  components: { Header, Welcome, Footer, Calculator, AdSense },
+  components: {
+    Header,
+    Welcome,
+    Footer,
+    Content,
+    Calculator,
+    KnowMore,
+    AdSense,
+  },
 };
 </script>
+
 
 <style>
 .main {

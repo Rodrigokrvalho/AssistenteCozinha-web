@@ -75,7 +75,7 @@ export default {
 }
 
 .results-ads .results {
-  width: 310px;
+  width: 295px;
   padding: 0px 0px; 
   display: flex;
   flex-direction: column;
@@ -86,7 +86,7 @@ export default {
 
 .results p {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
 }
 
 .results h3 {

@@ -10,12 +10,6 @@
   </div>
 </template>
 
-<script>
-export default {
-
-}
-</script>
-
 <style>
 strong {
     font-weight: 500;
