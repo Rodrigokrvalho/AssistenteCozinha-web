@@ -5,18 +5,16 @@
 </div>
 </template>
 
-
 <style>
  .content {
-    background-color: rgb(255, 230, 185);
-    padding: 7%;
+    padding: 5%;
  }
 
   .content p {
-    padding-bottom: 50px;
+    padding-bottom: 20px;
   }
 
   .content h2 {
-    padding: 25px 0;
+    padding: 20px 0;
   }
 </style>

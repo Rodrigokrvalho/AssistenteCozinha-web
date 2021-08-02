@@ -1,29 +1,48 @@
 <template>
   <div class="header">
-    <img src="../assets/icons/logo.png" alt="logo" />
-      <h1>Assistente de Cozinha</h1>
+    <div class="background">
+      <img src="../assets/img/logo-small-no-back.png" alt="logo" />
+    </div>
+    
   </div>
 </template>
 
 <style>
 .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 25px;
-    background-color:#ff9028;
-    margin: 0%;
+  height: 190px;
+  width: 100%;
+  justify-content: center;
+  background-color: var(--blue);
+  padding-bottom: 10px;
+  border-bottom: solid 5px white;
+}
+
+.background {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+  padding-top: 10px;
+  background-color: #fdf0d5;
 }
 .header img {
-    height: 150px;
-    margin: 0px 0 0px 0 ;
+  width: 300px;
+  background: #fdf0d5;
+  border-radius: 10px;
 }
 .header h1 {
   text-align: center;
-    color: white;
-    font-weight: 400;
-    font-size: 3rem;
-    margin: 0%;
+  color: white;
+  font-weight: 200;
+  font-size: 3rem;
+  margin-bottom: 0px;
+
+}
+@media (max-width: 630px) {
+  .header h1 {
+    font-size: 2.2rem;
+    margin: 15px 0;
+  }
 }
 </style>

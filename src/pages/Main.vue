@@ -2,17 +2,17 @@
   <div class="main">
     <div class="headers">
       <header class="content-header">
-        <!-- <div class="prop-5 ads-horizontal">
+        <div class="prop-5 ads-horizontal">
           <AdSense adClient="ca-pub-6998861137482717" adSlot="4951877269" />
-        </div> -->
+        </div>
         <Header />
       </header>
 
       <div class="content-welcome">
         <Welcome />
-        <!-- <div class="prop-6 ads-horizontal">
+        <div class="prop-6 ads-horizontal">
           <AdSense adClient="ca-pub-6998861137482717" adSlot="7076365775" />
-        </div> -->
+        </div>
       </div>
     </div>
 
@@ -23,22 +23,16 @@
       <Footer />
     </main>
 
-    <div class="prop-1 vertical">
+    <div class="prop-left vertical">
       <AdSense adClient="ca-pub-6998861137482717" adSlot="9248778139" />
-    </div>
-
-    <div class="prop-2 vertical">
       <AdSense adClient="ca-pub-6998861137482717" adSlot="1418196055" />
     </div>
 
-    <div class="prop-3 vertical">
+    <div class="prop-right vertical">
       <AdSense adClient="ca-pub-6998861137482717" adSlot="7748828355" />
-      <!-- <AdSense adClient="ca-pub-6998861137482717" adSlot="5335020649" /> -->
-    </div>
-
-    <div class="prop-4 vertical">
+      <AdSense adClient="ca-pub-6998861137482717" adSlot="5335020649" />
       <AdSense adClient="ca-pub-6998861137482717" adSlot="4871383575" />
-      <!-- <AdSense adClient="ca-pub-6998861137482717" adSlot="5216489191" /> -->
+      <AdSense adClient="ca-pub-6998861137482717" adSlot="5216489191" />
     </div>
   </div>
 </template>
@@ -68,42 +62,27 @@ export default {
 <style>
 .main {
   display: grid;
-  grid-template-columns: 300px 1fr 300px;
+  grid-template-columns: 280px 1fr 280px;
   grid-template-areas:
-    "prop-1 headers prop-2"
-    "prop-3 content-main prop-4";
+    "headers headers headers"
+    "prop-left content-main prop-right";
 }
 
-.prop-1 {
-  display: block;
-  justify-content: center;
-  grid-area: prop-1;
-  height: 600px;
-}
-
-.prop-2 {
-  display: block;
-  justify-content: center;
-  grid-area: prop-2;
-  height: 600px;
-}
-
-.prop-3 {
-  display: block;
+.prop-left {
+  display: none;
   justify-content: center;
   align-items: center;
-  grid-area: prop-3;
+  grid-area: prop-left;
 }
 
-.prop-4 {
-  display: block;
+.prop-right {
+  display: none;
   justify-content: center;
   align-items: center;
-  grid-area: prop-4;
+  grid-area: prop-right;
 }
 
 .headers {
-  background-color: rgb(255, 230, 185);
   grid-area: headers;
   width: 100%;
 }
@@ -114,12 +93,44 @@ export default {
 }
 
 .vertical {
-  display: block;
+  display: none;
 }
 
 .ads-horizontal {
   display: none;
 }
+@keyframes fadein {
+  0% {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 0%;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 100%;
+  }
+}
+
+@keyframes fadeinLabel {
+  0% {
+    height: 0%;
+    opacity: 0;
+    font-size: 0;
+  }
+  50% {
+    height: 100%;
+    font-size: 1rem ;
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 
 @media (max-width: 1200px) {
   html {
@@ -135,7 +146,13 @@ export default {
   }
 
   .ads-horizontal {
-    display: block;
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  html {
+    font-size: 16px;
   }
 }
 </style>

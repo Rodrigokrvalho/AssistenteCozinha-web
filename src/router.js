@@ -12,6 +12,9 @@ export default new Router({
             path: '/',
             component: Main
         },
-    
+        {
+            path: '*',
+            redirect: '/'
+        }
     ]
 })

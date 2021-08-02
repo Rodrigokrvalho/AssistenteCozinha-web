@@ -32,6 +32,13 @@ footer {
   font-size: 18px;
   padding: 10px;
   flex-wrap: wrap;
+  
+  border: solid 3px white;
+  border-bottom: none;
+  margin: 0 25px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 4px -4px 4px 1px var(--grey-dark);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .dev {

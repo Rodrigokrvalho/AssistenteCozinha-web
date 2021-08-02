@@ -1,10 +1,10 @@
 <template>
-  <div class="products">
+  <div class="products" id="calc">
     <div>
       <h2>1ª Parte</h2>
       <p>Insira as informações de cada ingrediente e click em Adicionar:</p>
     </div>
-    <div>
+    <div class="question">
       <label for="ingredient" id="label-ingredient" class="invisible"
         >Ingrediente</label
       >
@@ -15,7 +15,7 @@
         v-model="ingredient"
       />
     </div>
-    <div>
+    <div class="question">
       <label for="price" id="label-price" class="invisible"
         >Preço do ingrediente (R$)</label
       >
@@ -26,28 +26,47 @@
         v-model="price"
       />
     </div>
-    <div class="radios-unit">
+    <div class="radios-unit question">
       <p>
         Quantidade de {{ ingredient }} na <strong>embalagem fechada.</strong>
       </p>
-      <p>Unidade de medida:</p>
       <div class="radio-unit">
-        <input type="radio" name="radio-pack" id="kgPack" @click="checkUnit('kg', 'pack')" />
+        <input
+          type="radio"
+          name="radio-pack"
+          id="kgPack"
+          @click="checkUnit('kg', 'pack')"
+        />
         <label for="kg">Quilograma (kg)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-pack" id="gPack" @click="checkUnit('g', 'pack')" />
+        <input
+          type="radio"
+          name="radio-pack"
+          id="gPack"
+          @click="checkUnit('g', 'pack')"
+        />
         <label for="g">Grama (g)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-pack" id="lPack" @click="checkUnit('Litros', 'pack')" />
+        <input
+          type="radio"
+          name="radio-pack"
+          id="lPack"
+          @click="checkUnit('Litros', 'pack')"
+        />
         <label for="l">Litro (l)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-pack" id="mlPack" @click="checkUnit('ml', 'pack')" />
+        <input
+          type="radio"
+          name="radio-pack"
+          id="mlPack"
+          @click="checkUnit('ml', 'pack')"
+        />
         <label for="l">Mililitro (ml)</label>
       </div>
 
@@ -60,42 +79,58 @@
         />
         <label for="unit">Unidade</label>
       </div>
-
-      <div>
-        <label for="pack" id="label-pack" class="invisible"
-          >{{ unitPack }} na embalagem fechada</label
-        >
-        <input
-          type="number"
-          id="pack"
-          :placeholder="placeholderPackage"
-          v-model="pack"
-        />
-      </div>
+    </div>
+    <div class="question">
+      <label for="pack" id="label-pack" class="invisible"
+        >{{ unitPack }} na embalagem fechada</label
+      >
+      <input
+        type="number"
+        id="pack"
+        :placeholder="placeholderPackage"
+        v-model="pack"
+      />
     </div>
 
-    <div class="radios-unit">
-      <p>
-        Quantidade de {{ ingredient }} na <strong>receita.</strong>
-      </p>
-      <p>Unidade de medida:</p>
+    <div class="radios-unit question">
+      <p>Quantidade de {{ ingredient }} na <strong>receita.</strong></p>
       <div class="radio-unit">
-        <input type="radio" name="radio-recipe" id="kgRecipe" @click="checkUnit('kg', 'recipe')" />
+        <input
+          type="radio"
+          name="radio-recipe"
+          id="kgRecipe"
+          @click="checkUnit('kg', 'recipe')"
+        />
         <label for="kg">Quilograma (kg)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-recipe" id="gRecipe" @click="checkUnit('g', 'recipe')" />
+        <input
+          type="radio"
+          name="radio-recipe"
+          id="gRecipe"
+          @click="checkUnit('g', 'recipe')"
+        />
         <label for="g">Grama (g)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-recipe" id="lRecipe" @click="checkUnit('Litros', 'recipe')" />
+        <input
+          type="radio"
+          name="radio-recipe"
+          id="lRecipe"
+          @click="checkUnit('Litros', 'recipe')"
+        />
         <label for="l">Litro (l)</label>
       </div>
 
       <div class="radio-unit">
-        <input type="radio" name="radio-recipe" id="mlRecipe" @click="checkUnit('ml', 'recipe')" />
+        <input
+          type="radio"
+          name="radio-recipe"
+          id="mlRecipe"
+          @click="checkUnit('ml', 'recipe')"
+        />
         <label for="ml">Mililitro (ml)</label>
       </div>
 
@@ -108,17 +143,17 @@
         />
         <label for="unit">Unidade</label>
       </div>
-      <div>
-        <label for="recipe" id="label-recipe" class="invisible"
-          >{{ unitRecipe }} na Receita</label
-        >
-        <input
-          type="number"
-          id="recipe"
-          :placeholder="placeholderRecipe"
-          v-model="recipe"
-        />
-      </div>
+    </div>
+    <div class="question">
+      <label for="recipe" id="label-recipe" class="invisible"
+        >{{ unitRecipe }} na Receita</label
+      >
+      <input
+        type="number"
+        id="recipe"
+        :placeholder="placeholderRecipe"
+        v-model="recipe"
+      />
     </div>
 
     <div>
@@ -134,14 +169,11 @@
       </p>
     </div>
     <div class="horizontal">
-      <button id="button-add" class="font-green" @click="add()">
-        Adicionar
-      </button>
-      <button id="button-remove" class="font-red" @click="remove()">
+      <button id="button-add" class="button" @click="add()">Adicionar</button>
+      <button id="button-remove" class="button-red" @click="remove()">
         Remover
       </button>
     </div>
-    <hr />
     <div>
       <h2>2ª Parte</h2>
       <div class="switcher">
@@ -151,20 +183,21 @@
           <span class="slider round"></span>
         </label>
       </div>
-      <label
-        for="packagePrice"
-        id="label-packagePrice"
-        class="invisible"
-        v-if="inputPackage"
-        >Custo com Embrulho (R$)</label
-      >
-      <input
-        type="number"
-        v-if="inputPackage"
-        placeholder="Custo Embrulho (R$)"
-        v-model="packagePrice"
-        id="packagePrice"
-      />
+      <div class="question" v-show="inputPackage">
+        <label
+          for="packagePrice"
+          class="invisible"
+          id="label-packagePrice"
+          v-if="inputPackage"
+          >Custo com Embrulho (R$)</label
+        >
+        <input
+          type="number"
+          placeholder="Custo Embrulho (R$)"
+          v-model="packagePrice"
+          id="packagePrice"
+        />
+      </div>
       <div class="switcher">
         <p>Outras despesas (gás, eletricidade, etc.)</p>
         <label class="switch">
@@ -172,18 +205,23 @@
           <span class="slider round"></span>
         </label>
       </div>
-      <label for="others" id="label-others" class="invisible" v-if="inputOthers"
-        >Outras despesas (%)</label
-      >
-      <input
-        type="number"
-        v-if="inputOthers"
-        placeholder="Outras Despesas (%)"
-        v-model="others"
-        id="others"
-      />
+      <div class="question" v-show="inputOthers">
+        <label
+          for="others"
+          class="invisible"
+          id="label-others"
+          v-if="inputOthers"
+          >Outras despesas (%)</label
+        >
+        <input
+          type="number"
+          placeholder="Outras Despesas (%)"
+          v-model="others"
+          id="others"
+        />
+      </div>
     </div>
-    <div>
+    <div class="question">
       <label for="profit" id="label-profit" class="invisible"
         >Porcentagem de lucro (%)</label
       >
@@ -195,10 +233,12 @@
       />
     </div>
     <div>
-      <button id="button-calculate" @click="calcIng()">Calcular</button>
-      <button id="button-clean" class="font-red" @click="cleanAll()">
-        Limpar
-      </button>
+      <div class="horizontal">
+        <button id="button-calculate" @click="calcIng()">Calcular</button>
+        <button id="button-clean" class="button-red" @click="cleanAll()">
+          Limpar
+        </button>
+      </div>
       <div class="results">
         <Results
           :ing="ingTotal"
@@ -267,17 +307,18 @@ export default {
     },
 
     calcUnits(value, unit) {
-      if (unit == 'ml' || unit == 'g') {
-        return value / 1000
+      if (unit == "ml" || unit == "g") {
+        return value / 1000;
+      } else {
+        return value;
       }
-      else {return value}
     },
 
     checkUnit(unit, place) {
       if (place === "pack") {
         this.unitPack = unit;
       } else {
-        this.unitRecipe = unit
+        this.unitRecipe = unit;
       }
     },
 
@@ -306,7 +347,9 @@ export default {
     calcIng() {
       this.ingTotal = 0;
       this.ingredients.forEach((ing) => {
-        const value = (ing.price / this.calcUnits(ing.pack, ing.unitPack)) * this.calcUnits(ing.recipe, ing.unitRecipe);
+        const value =
+          (ing.price / this.calcUnits(ing.pack, ing.unitPack)) *
+          this.calcUnits(ing.recipe, ing.unitRecipe);
         this.ingTotal = this.ingTotal + value;
       });
     },
@@ -371,28 +414,76 @@ export default {
 </script>
 
 <style>
+strong {
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  font-size: 1.3rem;
+  border: none;
+  border-bottom: solid 2px var(--blue);
+  padding: 0px 10px 3px;
+  margin: 10px 0 10px;
+  outline: none;
+  background-color: transparent;
+}
+
+input:focus {
+  border-bottom: solid 2px var(--blue-light);
+  color: var(--green-dark);
+  padding: 3px 10px 3px;
+}
+
+input::placeholder {
+  color: rgb(87, 87, 87);
+}
+
+p {
+  padding: 12px 0%;
+  text-align: left;
+  font-size: 1.35rem;
+  color: rgb(39, 39, 39);
+}
+
+/* ===== buttons ===== */
+
+button,
+.button {
+  padding: 5px 30px;
+  box-shadow: 1px 2px 3px 0px grey;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 20px 25px;
+  cursor: pointer;
+  transition: all 300ms ease-in;
+  color: var(--blue);
+  background-color: #fffbf3;
+  border: solid 3px var(--blue);
+  border-radius: 10px;
+}
+
+button:hover,
+.button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 4px 6px 0px var(--grey);
+}
+
+.button-red {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+/* ===== products ===== */
 .products {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: rgb(255, 230, 185);
-  padding: 0% 7%;
+  padding: 0% 2.5%;
   overflow: hidden;
-  color: rgb(47, 47, 47);
-}
-
-strong {
-  font-weight: 600;
-}
-
-.font-red {
-  color: rgb(195, 0, 0);
-}
-
-.font-green {
-  color: #015c62;
+  color: var(--grey-dark);
 }
 
 .products h2 {
@@ -411,12 +502,23 @@ strong {
 }
 
 .products label.visible {
-  display: block;
+  position: relative;
   visibility: visible;
+  animation: fadeinLabel;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
 }
+
 .products label.invisible {
-  /* display: none; */
+  position: absolute;
   visibility: hidden;
+  opacity: 0;
+  border: none;
+  animation: fadeout;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
 }
 
 .products div {
@@ -424,55 +526,28 @@ strong {
   text-align: center;
 }
 
-.products input {
-  width: 100%;
-  font-size: 1.3rem;
-  border: none;
-  border-bottom: solid 1px rgb(70, 70, 70);
-  background-color: rgb(255, 230, 185);
-  padding: 0px 10px 3px;
-  margin: 10px 0 10px;
-  outline: none;
+.products .question {
+  border: solid 3px var(--transparent);
+  background-color: var(--transparent);
+  border-radius: 10px;
+  padding: 0 10px;
+  margin: 5px 0;
+  box-shadow: 1px 0px 6px 0px var(--grey);
 }
 
-.products input:focus {
-  border-bottom: solid 3px rgb(75, 86, 246);
-  color: rgb(0, 0, 195);
-  padding: 3px 10px 3px;
+.products .question p {
+  font-size: 1.25rem;
 }
 
-.products input::placeholder {
-  color: rgb(104, 104, 104);
-}
-
-p {
-  padding: 12px 0%;
-  text-align: left;
-  font-size: 1.2rem;
-}
-
-.products button {
-  padding: 5px 30px;
-  box-shadow: 1px 2px 3px 0px grey;
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 20px 25px;
-  cursor: pointer;
-}
-
-.radios-unit {
-  margin: 25px 0;
+/* ===== radio unit ===== */
+.products div.radios-unit {
+  margin: 20px 0 5px 0;
   padding: 10px;
-  background-color: #ffab5d4d;
   border-radius: 10px;
 }
 
-#pack, #recipe {
-  background-color: transparent;
-}
-
 .radios-unit p {
-  padding: 5px 0;
+  padding: 0;
 }
 
 .radio-unit {
@@ -501,26 +576,27 @@ p {
 }
 
 .horizontal {
-  border-bottom: solid 1px grey;
+  border-bottom: solid 1px var(--white);
   margin-bottom: 40px;
-  padding-bottom: 40px;
 }
 
+/* ======= toogle ======= */
 .switcher {
   display: flex;
-  justify-content: left;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
-  padding: 10 0px;
+  padding: 0px;
   margin-bottom: 20px;
+  margin-left: -25px;
 }
 
 .switcher p {
-  padding: 20px 10px 0px 0%;
-  width: 500px;
-  max-width: 65%;
+  padding: 10px 10px 0px 0%;
+  width: 600px;
+  max-width: 70%;
 }
-/* ======= toogle ======= */
+
 .switch label {
   width: 60px;
   height: 34px;
@@ -538,7 +614,7 @@ p {
   cursor: pointer;
   height: 21px;
   width: 50px;
-  background-color: rgb(255, 100, 100);
+  background-color: var(--red);
   -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 34px;
@@ -558,11 +634,11 @@ p {
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: var(--blue);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px var(--blue);
 }
 
 input:checked + .slider:before {

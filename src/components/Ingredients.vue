@@ -7,7 +7,3 @@ export default {
     props: ['ing', 'recipe', 'unitRecipe']
 }
 </script>
-
-<style>
-
-</style>
