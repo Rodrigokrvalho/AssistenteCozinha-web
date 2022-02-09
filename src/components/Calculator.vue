@@ -1,179 +1,6 @@
 <template>
   <div class="products" id="calc">
-    <div>
-      <h2>1ª Parte</h2>
-      <p>Insira as informações de cada ingrediente e click em Adicionar:</p>
-    </div>
-    <div class="question">
-      <label for="ingredient" id="label-ingredient" class="invisible"
-        >Ingrediente</label
-      >
-      <input
-        type="text"
-        id="ingredient"
-        placeholder="Ingrediente"
-        v-model="ingredient"
-      />
-    </div>
-    <div class="question">
-      <label for="price" id="label-price" class="invisible"
-        >Preço do ingrediente (R$)</label
-      >
-      <input
-        type="number"
-        id="price"
-        placeholder="Preço do ingrediente (R$)"
-        v-model="price"
-      />
-    </div>
-    <div class="radios-unit question">
-      <p>
-        Quantidade de {{ ingredient }} na <strong>embalagem fechada.</strong>
-      </p>
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-pack"
-          id="kgPack"
-          @click="checkUnit('kg', 'pack')"
-        />
-        <label for="kg">Quilograma (kg)</label>
-      </div>
-
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-pack"
-          id="gPack"
-          @click="checkUnit('g', 'pack')"
-        />
-        <label for="g">Grama (g)</label>
-      </div>
-
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-pack"
-          id="lPack"
-          @click="checkUnit('Litros', 'pack')"
-        />
-        <label for="l">Litro (l)</label>
-      </div>
-
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-pack"
-          id="mlPack"
-          @click="checkUnit('ml', 'pack')"
-        />
-        <label for="l">Mililitro (ml)</label>
-      </div>
-
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-pack"
-          id="unit"
-          @click="checkUnit('Unidades', 'pack')"
-        />
-        <label for="unit">Unidade</label>
-      </div>
-    </div>
-    <div class="question">
-      <label for="pack" id="label-pack" class="invisible"
-        >{{ unitPack }} na embalagem fechada</label
-      >
-      <input
-        type="number"
-        id="pack"
-        :placeholder="placeholderPackage"
-        v-model="pack"
-      />
-    </div>
-
-    <div class="radios-unit question">
-      <p>Quantidade de {{ ingredient }} na <strong>receita.</strong></p>
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-recipe"
-          id="kgRecipe"
-          @click="checkUnit('kg', 'recipe')"
-        />
-        <label for="kg">Quilograma (kg)</label>
-      </div>
-
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-recipe"
-          id="gRecipe"
-          @click="checkUnit('g', 'recipe')"
-        />
-        <label for="g">Grama (g)</label>
-      </div>
-
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-recipe"
-          id="lRecipe"
-          @click="checkUnit('Litros', 'recipe')"
-        />
-        <label for="l">Litro (l)</label>
-      </div>
-
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-recipe"
-          id="mlRecipe"
-          @click="checkUnit('ml', 'recipe')"
-        />
-        <label for="ml">Mililitro (ml)</label>
-      </div>
-
-      <div class="radio-unit">
-        <input
-          type="radio"
-          name="radio-recipe"
-          id="unitRecipe"
-          @click="checkUnit('Unidades', 'recipe')"
-        />
-        <label for="unit">Unidade</label>
-      </div>
-    </div>
-    <div class="question">
-      <label for="recipe" id="label-recipe" class="invisible"
-        >{{ unitRecipe }} na Receita</label
-      >
-      <input
-        type="number"
-        id="recipe"
-        :placeholder="placeholderRecipe"
-        v-model="recipe"
-      />
-    </div>
-
-    <div>
-      <p id="add-ingredients">
-        Produtos adicionados e quantidade na receita
-        <Ingredients
-          v-for="ing in ingredients"
-          :key="ing.key"
-          :ing="ing.ingredient"
-          :recipe="ing.recipe"
-          :unitRecipe="ing.unitRecipe"
-        />
-      </p>
-    </div>
-    <div class="horizontal">
-      <button id="button-add" class="button" @click="add()">Adicionar</button>
-      <button id="button-remove" class="button-red" @click="remove()">
-        Remover
-      </button>
-    </div>
+    <TheIngredientAdderForm />
     <div>
       <h2>2ª Parte</h2>
       <div class="switcher">
@@ -253,9 +80,10 @@
 
 <script>
 import Results from "./Results";
-import Ingredients from "./Ingredients";
+
+import TheIngredientAdderForm from "./TheIngredientAdderForm.vue";
 export default {
-  components: { Results, Ingredients },
+  components: { Results, TheIngredientAdderForm },
   data: function () {
     return {
       ingredient: "",
@@ -274,64 +102,13 @@ export default {
       ingTotal: 0,
     };
   },
-  computed: {
-    placeholderPackage() {
-      return this.unitPack + " na embalagem fechada";
-    },
-    placeholderRecipe() {
-      return this.unitRecipe + " na receita";
-    },
-  },
   methods: {
-    add() {
-      if (
-        (this.ingredient !== "") &
-        (this.price !== "") &
-        (this.pack !== "") &
-        (this.recipe !== "") &
-        (this.unitRecipe !== "") &
-        (this.unitPack !== "")
-      ) {
-        this.ingredients.push({
-          key: this.ingredients.lastIndex,
-          ingredient: this.ingredient,
-          price: this.price,
-          unitRecipe: this.unitRecipe,
-          unitPack: this.unitPack,
-          pack: this.pack,
-          recipe: this.recipe,
-        });
-
-        this.clean();
-      } else alert("Preencha todos os campos para Adicionar");
-    },
-
     calcUnits(value, unit) {
       if (unit == "ml" || unit == "g") {
         return value / 1000;
       } else {
         return value;
       }
-    },
-
-    checkUnit(unit, place) {
-      if (place === "pack") {
-        this.unitPack = unit;
-      } else {
-        this.unitRecipe = unit;
-      }
-    },
-
-    remove() {
-      const lastIndex = this.ingredients.length - 1;
-      this.ingredients.splice(lastIndex);
-    },
-
-    clean() {
-      this.ingredient = "";
-      this.price = "";
-      this.pack = "";
-      this.recipe = "";
     },
 
     cleanAll() {
