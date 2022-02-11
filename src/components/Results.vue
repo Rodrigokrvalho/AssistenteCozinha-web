@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .results-ads {
   display: flex;
   flex-direction: row;

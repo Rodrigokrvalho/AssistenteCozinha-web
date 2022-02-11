@@ -28,7 +28,7 @@
     </div>
 
     <BaseInput
-      id="price"
+      id="pack"
       :label="`${unitPack} na embalagem fechada`"
       :placeholder="`${unitPack} na embalagem fechada`"
       type="number"
@@ -50,23 +50,8 @@
       v-model="recipe"
     />
 
-    <div>
-      <p id="add-ingredients">
-        Produtos adicionados e quantidade na receita
-        <Ingredients
-          v-for="ing in ingredients"
-          :key="ing.key"
-          :ing="ing.ingredient"
-          :recipe="ing.recipe"
-          :unitRecipe="ing.unitRecipe"
-        />
-      </p>
-    </div>
     <div class="horizontal">
       <button id="button-add" class="button" @click="add()">Adicionar</button>
-      <button id="button-remove" class="button-red" @click="remove()">
-        Remover
-      </button>
     </div>
   </div>
 </template>
@@ -74,9 +59,9 @@
 <script>
 import BaseInput from "./BaseInput.vue";
 import BaseRadioGroup from "./BaseRadioGroup.vue";
-import Ingredients from "./Ingredients.vue";
+
 export default {
-  components: { BaseInput, BaseRadioGroup, Ingredients },
+  components: { BaseInput, BaseRadioGroup },
   data() {
     return {
       ingredient: "",
@@ -85,11 +70,11 @@ export default {
       recipe: "",
       unitPack: "",
       unitRecipe: "",
-      ingredients: [],
     };
   },
+  emits: ["addIngredient", "removeIngredient"],
   methods: {
-    add() {
+    validateProduct() {
       if (
         (this.ingredient !== "") &
         (this.price !== "") &
@@ -98,18 +83,27 @@ export default {
         (this.unitRecipe !== "") &
         (this.unitPack !== "")
       ) {
-        this.ingredients.push({
-          key: this.ingredients.lastIndex,
-          ingredient: this.ingredient,
-          price: this.price,
-          unitRecipe: this.unitRecipe,
-          unitPack: this.unitPack,
-          pack: this.pack,
-          recipe: this.recipe,
-        });
+        return true;
+      } else {
+        alert("Preencha todos os campos para Adicionar");
+        return false;
+      }
+    },
+    add() {
+      if (!this.validateProduct()) {
+        return;
+      }
 
-        this.clean();
-      } else alert("Preencha todos os campos para Adicionar");
+      this.$emit("addIngredient", {
+        ingredient: this.ingredient,
+        price: this.price,
+        unitRecipe: this.unitRecipe,
+        unitPack: this.unitPack,
+        pack: this.pack,
+        recipe: this.recipe,
+      });
+
+      this.clean();
     },
 
     clean() {
@@ -120,8 +114,7 @@ export default {
     },
 
     remove() {
-      const lastIndex = this.ingredients.length - 1;
-      this.ingredients.splice(lastIndex);
+      this.$emit("removeIngredient");
     },
   },
 };

@@ -13,15 +13,15 @@
       </div>
     </div>
     <div class="dev">
-    <p>Design</p>
-    <h3>Mayara S. R. Carvalho</h3>
+      <p>Design</p>
+      <h3>Mayara S. R. Carvalho</h3>
     </div>
   </footer>
 </template>
 
 
 
-<style>
+<style scoped>
 footer {
   display: flex;
   flex-direction: row;
@@ -32,7 +32,7 @@ footer {
   font-size: 18px;
   padding: 10px;
   flex-wrap: wrap;
-  
+
   border: solid 3px white;
   border-bottom: none;
   margin: 0 25px;
@@ -42,9 +42,9 @@ footer {
 }
 
 .dev {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .social {

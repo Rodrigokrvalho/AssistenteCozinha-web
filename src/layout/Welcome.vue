@@ -16,13 +16,13 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 strong {
   font-weight: 500;
 }
 .welcome {
   background: linear-gradient(to bottom, #669bbc, #003049);
-  background:#003049 ;
+  background: #003049;
   box-shadow: 3px 3px 4px 0px var(--grey-dark);
   overflow: hidden;
 }

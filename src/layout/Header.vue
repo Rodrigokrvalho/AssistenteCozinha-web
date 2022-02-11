@@ -3,11 +3,10 @@
     <div class="background">
       <img src="../assets/img/logo-small-no-back.png" alt="logo" />
     </div>
-    
   </div>
 </template>
 
-<style>
+<style scoped>
 .header {
   height: 190px;
   width: 100%;
@@ -37,7 +36,6 @@
   font-weight: 200;
   font-size: 3rem;
   margin-bottom: 0px;
-
 }
 @media (max-width: 630px) {
   .header h1 {
