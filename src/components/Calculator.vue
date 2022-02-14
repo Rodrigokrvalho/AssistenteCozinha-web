@@ -1,31 +1,35 @@
 <template>
   <div class="calculator-container">
-    <TheIngredientAdderForm @addIngredient="ingredients.push($event)" />
+    <div class="page" v-show="pageNumber === 1">
+      <TheIngredientAdderForm @addIngredient="ingredients.push($event)" />
 
-    <BaseAddedProducts
-      :ingredients="ingredients"
-      @removeIngredient="ingredients.splice($event, 1)"
-    />
+      <BaseAddedProducts
+        :ingredients="ingredients"
+        @removeIngredient="ingredients.splice($event, 1)"
+      />
+    </div>
 
-    <FormAddOtherExpences
-      @data="
-        ($event) => {
-          packagePrice = $event.packagePrice;
-          others = $event.othersExpences;
-          profit = $event.profit;
-          calcIng();
-        }
-      "
-    />
+    <div class="page" v-show="pageNumber === 2">
+      <FormAddOtherExpences
+        @data="
+          ($event) => {
+            packagePrice = $event.packagePrice;
+            others = $event.othersExpences;
+            profit = $event.profit;
+            calcIng();
+          }
+        "
+      />
+    </div>
 
-    <button class="button-red" @click="cleanAll()">Limpar</button>
-
-    <Results
-      :ing="ingTotal"
-      :packagePrice="packagePrice ? packagePrice : 0"
-      :others="others ? others : 0"
-      :profit="profit ? profit : 0"
-    />
+    <div class="page" v-show="pageNumber === 3">
+      <Results
+        :ing="ingTotal"
+        :packagePrice="packagePrice ? packagePrice : 0"
+        :others="others ? others : 0"
+        :profit="profit ? profit : 0"
+      />
+    </div>
   </div>
 </template>
 
@@ -36,6 +40,9 @@ import Results from "./Results";
 import TheIngredientAdderForm from "./TheIngredientAdderForm.vue";
 
 export default {
+  props: {
+    pageNumber: { type: Number, required: true },
+  },
   components: {
     Results,
     TheIngredientAdderForm,
@@ -45,11 +52,9 @@ export default {
   data() {
     return {
       packagePrice: 0,
-      others: "",
-      profit: "",
+      others: 0,
+      profit: 0,
       ingredients: [],
-      inputPackage: false,
-      inputOthers: false,
       ingTotal: 0,
     };
   },
@@ -63,12 +68,11 @@ export default {
     },
 
     cleanAll() {
-      this.clean();
       this.ingredients = [];
       this.ingTotal = 0;
-      this.packagePrice = "";
-      this.others = "";
-      this.profit = "";
+      this.packagePrice = 0;
+      this.others = 0;
+      this.profit = 0;
     },
 
     calcIng() {

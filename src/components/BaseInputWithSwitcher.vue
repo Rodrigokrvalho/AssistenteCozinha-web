@@ -70,11 +70,11 @@ export default {
 }
 
 input:checked + .slider {
-  background-color: var(--blue);
+  background-color: var(--blue-light);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--blue);
+  box-shadow: 0 0 1px var(--blue-light);
 }
 
 input:checked + .slider:before {

@@ -1,46 +1,27 @@
 <template>
-  <div class="header">
-    <div class="background">
+  <header>
+    <div class="img-container">
       <img src="../assets/img/logo-small-no-back.png" alt="logo" />
     </div>
-  </div>
+  </header>
 </template>
 
 <style scoped>
-.header {
-  height: 190px;
-  width: 100%;
+header {
+  display: flex;
   justify-content: center;
-  background-color: var(--blue);
+  height: 7rem;
+  width: 100%;
   padding-bottom: 10px;
-  border-bottom: solid 5px white;
 }
 
-.background {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 200px;
-  width: 100%;
-  padding-top: 10px;
-  background-color: #fdf0d5;
+header .img-container img {
+  padding: 0.5rem 1rem;
+  background: white;
+  margin: 1rem 0;
 }
-.header img {
-  width: 300px;
-  background: #fdf0d5;
-  border-radius: 10px;
-}
-.header h1 {
-  text-align: center;
-  color: white;
-  font-weight: 200;
-  font-size: 3rem;
-  margin-bottom: 0px;
-}
-@media (max-width: 630px) {
-  .header h1 {
-    font-size: 2.2rem;
-    margin: 15px 0;
-  }
+
+header .img-container img {
+  height: 100%;
 }
 </style>

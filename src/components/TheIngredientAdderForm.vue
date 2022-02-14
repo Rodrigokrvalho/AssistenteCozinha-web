@@ -12,33 +12,45 @@
       v-model="ingredient"
     />
 
-    <BaseInput
-      id="price"
-      label="Preço do Ingrediente"
-      placeholder="Preço do ingrediente (R$)"
-      type="number"
-      v-model="price"
-    />
+    <div class="input-select">
+      <BaseInput
+        id="price"
+        label="Preço do Ingrediente"
+        placeholder="Preço do ingrediente (R$)"
+        type="number"
+        v-model="price"
+      />
 
-    <div class="question">
-      <BaseRadioGroup
-        :label="`Quantidade de ${ingredient} na embalagem fechada.`"
-        @clickedItem="unitPack = $event"
+      <BaseSelect
+        :items="[
+          { label: 'Quilograma (kg)', value: 'kg' },
+          { label: 'Grama (g)', value: 'g' },
+          { label: 'Litro (l)', value: 'l' },
+          { label: 'Mililitro (ml)', value: 'ml' },
+          { label: 'Unidade', value: 'Unidades' },
+        ]"
+        @selected="unitPack = $event"
       />
     </div>
 
-    <BaseInput
-      id="pack"
-      :label="`${unitPack} na embalagem fechada`"
-      :placeholder="`${unitPack} na embalagem fechada`"
-      type="number"
-      v-model="pack"
-    />
+    <div class="input-select">
+      <BaseInput
+        id="pack"
+        :label="`${unitPack} na embalagem fechada`"
+        :placeholder="`${unitPack} na embalagem fechada`"
+        type="number"
+        v-model="pack"
+      />
 
-    <div class="question">
-      <BaseRadioGroup
-        :label="`Quantidade de ${ingredient} na receita.`"
-        @clickedItem="unitRecipe = $event"
+      <BaseSelect
+        :items="[
+          { label: 'Quilograma (kg)', value: 'kg' },
+          { label: 'Grama (g)', value: 'g' },
+          { label: 'Litro (l)', value: 'l' },
+          { label: 'Mililitro (ml)', value: 'ml' },
+          { label: 'Unidade', value: 'Unidades' },
+        ]"
+        @selected="unitRecipe = $event"
       />
     </div>
 
@@ -50,18 +62,16 @@
       v-model="recipe"
     />
 
-    <div class="horizontal">
-      <button id="button-add" class="button" @click="add()">Adicionar</button>
-    </div>
+    <button id="button-add" class="button" @click="add()">Adicionar</button>
   </div>
 </template>
 
 <script>
 import BaseInput from "./BaseInput.vue";
-import BaseRadioGroup from "./BaseRadioGroup.vue";
+import BaseSelect from "./BaseSelect.vue";
 
 export default {
-  components: { BaseInput, BaseRadioGroup },
+  components: { BaseInput, BaseSelect },
   data() {
     return {
       ingredient: "",
@@ -112,10 +122,14 @@ export default {
       this.pack = "";
       this.recipe = "";
     },
-
-    remove() {
-      this.$emit("removeIngredient");
-    },
   },
 };
 </script>
+
+<style scoped>
+.add-ingredient-container .input-select {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+</style>
